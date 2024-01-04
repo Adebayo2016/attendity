@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "269956440741",
+    "project_id": "attendity-20f5b",
+    "storage_bucket": "attendity-20f5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269956440741:android:8aa9d121a6e1f22f8b634c",
+        "android_client_info": {
+          "package_name": "com.example.attendity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDB-8VMrpT6J7Q1UForjHqM6SZfYj-P_bQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
