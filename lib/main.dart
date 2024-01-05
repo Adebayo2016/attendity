@@ -1,17 +1,23 @@
+import 'package:attendity/views/home.dart';
 import 'package:attendity/views/login.dart';
 import 'package:attendity/splash.dart';
+import 'package:attendity/views/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'firebase_options.dart';
 
 void main() async  {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+configLoading();
+  runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -24,6 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      builder:EasyLoading.init(),
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -48,7 +55,23 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    return ScreenUtilInit(child: Login());
+    return ScreenUtilInit(child: HomePage());
 
   }
+
+}
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 4000)
+    ..indicatorType = EasyLoadingIndicatorType.ripple
+    ..loadingStyle = EasyLoadingStyle.light
+    ..indicatorSize = 45
+    ..radius = 10
+    ..progressColor = Colors.deepOrange
+    ..backgroundColor = Colors.transparent
+    ..indicatorColor = Colors.deepOrange
+    ..textColor = Colors.deepOrange
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = false
+    ..dismissOnTap = false;
 }
