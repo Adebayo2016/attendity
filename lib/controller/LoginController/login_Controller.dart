@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+
+import '../../util/networkError.dart';
 
 class LoginController extends GetxController {
   String email = '';
@@ -13,6 +17,7 @@ class LoginController extends GetxController {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   void onEmailChanged(String text) {
     email = text;
@@ -60,5 +65,30 @@ class LoginController extends GetxController {
       return true;
     }
     return false;
+  }
+
+  void Login(BuildContext context) async {
+    String? userEmail=emailController.text;
+    String? userPassword=passwordController.text;
+    startLoading(context);
+    try {
+      await auth
+          .signInWithEmailAndPassword(email: userEmail, password: userPassword)
+          .whenComplete(() async {
+        getUserDetails();
+        loadingSuccessful("success");
+      });
+     // Get.to(() => MainApp());
+    } on FirebaseAuthException catch (e) {
+      print("this is firebase error " + e.toString());
+      loadingFailed(e, context);
+
+      // return false;
+    } catch (e) {
+
+    }
+  }
+  getUserDetails(){
+    print("i am here ");
   }
 }

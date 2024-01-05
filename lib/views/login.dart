@@ -1,10 +1,19 @@
+import 'package:attendity/controller/LoginController/login_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final LoginController _loginController = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -64,6 +73,7 @@ class Login extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Center(
                   child: TextField(
+                    controller: _loginController.emailController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter your Futa Email ID',
@@ -94,6 +104,7 @@ class Login extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Center(
                   child: TextField(
+                    controller: _loginController.passwordController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'password',
@@ -122,10 +133,7 @@ class Login extends StatelessWidget {
             //minimumSize: Size(343.sp, 50.sp),
           ),
           onPressed: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const ()),
-            // );
+            _loginController.Login(context);
           },
           child: const Text('Log in'),
         ),
