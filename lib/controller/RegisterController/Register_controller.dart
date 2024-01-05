@@ -22,12 +22,22 @@ String email = '';
   String? Level;
   int? accountType;
 
+
+
   FirebaseAuth auth = FirebaseAuth.instance;
-  FirebaseFirestore data = FirebaseFirestore.instance;
+  //FirebaseFirestore data = FirebaseFirestore.instance.collection('users');
+  CollectionReference student = FirebaseFirestore.instance.collection('users');
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController FullNamesController = TextEditingController();
+  TextEditingController PhoneController = TextEditingController();
+  TextEditingController MatricNumberController = TextEditingController();
+  TextEditingController DepartmentController = TextEditingController();
+  TextEditingController LevelController = TextEditingController();
+
+
+
 
   void onEmailChanged(String text) {
     email = text;
@@ -91,26 +101,42 @@ String email = '';
   }
 
   void Register() async {
+    String? userEmail=emailController.text;
+    String? userPassword=passwordController.text;
 
-    auth.createUserWithEmailAndPassword(
-        email: email, password: password).
-    then((value) => Get.snackbar('Success',
-        'Account created successfully',snackPosition: SnackPosition.BOTTOM)
+   await  auth.createUserWithEmailAndPassword(
+        email: userEmail, password: userPassword).
+    then((value) async {
+      await saveUserDetails();
+      Get.snackbar('Success',
+          'Account created successfully',snackPosition: SnackPosition.BOTTOM);
+    }
     ).catchError((error) => Get.snackbar('Error', error.toString(),snackPosition: SnackPosition.BOTTOM));
-
   }
 
-  void saveUserDetails() async {
+
+  Future<void> saveUserDetails() async {
+    print("Saving user details ");
+    String? userEmail=emailController.text;
+    String? fullNames=FullNamesController.text;
+    String? phone=PhoneController.text;
+    String? matricNumber=MatricNumberController.text;
+    String? department=DepartmentController.text;
+    String? level=LevelController.text;
     try {
-      await data.collection('users').doc(email).set({
-        'email': email,
-        'FullNames': FullNames,
-        'Phone': Phone,
-        'MatricNumber': MatricNumber,
-        'Department': Department,
-        'Level': Level,
-      });
-    } catch (e) {
+      await student.doc(userEmail).set({
+        'email': userEmail,
+        'FullNames': fullNames,
+        'Phone': phone,
+        'MatricNumber': matricNumber,
+        'Department': department,
+        'Level': level,
+        'accountType': 1,
+      }).then((value){
+        Get.snackbar('Success',
+            'Data Saved Successfully',snackPosition: SnackPosition.BOTTOM);
+      }).catchError((error) => Get.snackbar('Error', error.toString(),snackPosition: SnackPosition.BOTTOM));
+      } catch (e) {
       print(e);
     }
   }
