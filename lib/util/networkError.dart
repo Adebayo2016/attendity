@@ -18,6 +18,7 @@ Future<void> startLoading(BuildContext context,
       dismissOnTap: false,
       status: message,
       maskType: EasyLoadingMaskType.black);
+
 }
 
 loadingSuccessful(String? message,
