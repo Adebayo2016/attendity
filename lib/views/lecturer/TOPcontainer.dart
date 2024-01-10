@@ -121,7 +121,7 @@ class _TopContainerState extends State<TopContainer> {
                                     return ListTile(
                                       title: Text(myCourses[index]['name']),
                                       onTap: () {
-                                      Get.to(()=>QRCode());
+                                      Get.to(()=>QRCode(ClassName: myCourses[index]['name'],));
                                         Navigator.of(context).pop();
                                       },
                                     );
@@ -139,80 +139,12 @@ class _TopContainerState extends State<TopContainer> {
                             ),
                           ),
                           height: 160.sp,
-                          width: double.infinity,
+                         // width: double.infinity,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
                                 Text("Instant Class",
-                                    style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.white)),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                    "Create classes for later use and start taking attendance",
-                                    style: TextStyle(
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white)),
-                                SizedBox(
-                                  height: 60.sp,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text('Start now',
-                                        style: TextStyle(
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.white)),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                      size: 10,
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          )),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {},
-                      child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xFF5900CA).withOpacity(0.3),
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                                offset: const Offset(
-                                    0, 3), // changes position of shadow
-                              ),
-                            ],
-                            color: Color(0xFF5900CA),
-                            // border: Border.all(
-                            // ),
-                          ),
-                          height: 160.sp,
-                          width: double.infinity,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Text("Schedule Class",
                                     style: TextStyle(
                                         fontSize: 14.sp,
                                         fontWeight: FontWeight.w700,
@@ -252,6 +184,10 @@ class _TopContainerState extends State<TopContainer> {
                           )),
                     ),
                   ),
+                  SizedBox(
+                    width: 16,
+                  ),
+
                 ],
               ),
               SizedBox(

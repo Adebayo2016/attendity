@@ -10,22 +10,6 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  // showMarkAsDoneDialog() {
-  //   Get.defaultDialog(
-  //     title: 'Mark as done',
-  //     content: Text('Are you sure you want to mark this task as done?'),
-  //     textConfirm: 'Yes',
-  //     textCancel: 'No',
-  //     confirmTextColor: Colors.white,
-  //     onConfirm: () {
-  //       Get.back();
-  //     },
-  //     onCancel: () {
-  //       Get.back();
-  //     },
-  //   );
-  // }
-
       ShowMarkDialog (BuildContext context) {
         AlertDialog(
           title: Text("Mark as done"),

@@ -19,13 +19,13 @@ class LoginController extends GetxController {
   var isEmailValid = false;
   var isPasswordValid = false;
   var isFormValid = false;
-  String lecturername="";
+  String lecturername = "";
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
   CollectionReference data = FirebaseFirestore.instance.collection('users');
-  List<Map<String, dynamic>> allLecturerCourses =[];
+  List<Map<String, dynamic>> allLecturerCourses = [];
 
   void onEmailChanged(String text) {
     email = text;
@@ -76,8 +76,8 @@ class LoginController extends GetxController {
   }
 
   void Login(BuildContext context) async {
-    String? userEmail=emailController.text;
-    String? userPassword=passwordController.text;
+    String? userEmail = emailController.text;
+    String? userPassword = passwordController.text;
     startLoading(context);
     try {
       await auth
@@ -86,52 +86,48 @@ class LoginController extends GetxController {
         getUserDetails();
         loadingSuccessful("success");
       });
-     // Get.to(() => MainApp());
+      // Get.to(() => MainApp());
     } on FirebaseAuthException catch (e) {
       print("this is firebase error " + e.toString());
       loadingFailed(e, context);
 
       // return false;
-    } catch (e) {
-
-    }
-  }
-  getUserDetails(){
-     var user = auth.currentUser;
-      var uid = user!.email;
-      data.doc(uid).get().then((value) {
-        lecturername=value['FullNames'];
-        update();
-        if(value['accountType']==1){
-
-          Get.to(() => HomePage());
-        }
-        else {
-          getAllMyCourses();
-          // Get.to(() => LecturerPage());
-        }
-
-      });
+    } catch (e) {}
   }
 
- void  getAllMyCourses() async  {
+  getUserDetails() {
+    var user = auth.currentUser;
+    var uid = user!.email;
+    data.doc(uid).get().then((value) {
+      lecturername = value['FullNames'];
+      var accountType = value['accountType'];
+      if (value['accountType'] == 1) {
+        print("AccountType is this  $accountType");
+        Get.to(() => const HomePage());
+      } else {
+        getAllMyCourses();
+        // Get.to(() => LecturerPage());
+      }
+      update();
+    });
+  }
+
+  void getAllMyCourses() async {
     try {
-      print("i have started oo in my Login ");
       startLoading(Get.context!);
-      await  FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('courses')
           .where('lecturerName', isEqualTo: 'Dr. olotu')
           .snapshots()
           .listen((snapshot) {
         if (snapshot.docs.isEmpty) {
           loadingSuccessful(null);
-
         } else {
           loadingSuccessful(null);
           snapshot.docs.forEach((element) {
             allLecturerCourses.add(element.data());
             print("All Lecturer Courses are  " + allLecturerCourses.toString());
-            Get.to(() => LecturerPage());
+            Get.to(() => HomePage());
           });
         }
       });

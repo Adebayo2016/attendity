@@ -9,10 +9,13 @@ import '../../LoginController/login_Controller.dart';
 
 class LecturerHomeController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  CollectionReference allCourses = FirebaseFirestore.instance.collection('courses');
-  CollectionReference allLectures = FirebaseFirestore.instance.collection('lectures');
-  CollectionReference allStudents = FirebaseFirestore.instance.collection('students');
-  List<Map<String, dynamic>> allLecturerCourses =[];
+  CollectionReference allCourses =
+      FirebaseFirestore.instance.collection('courses');
+  CollectionReference allLectures =
+      FirebaseFirestore.instance.collection('lectures');
+  CollectionReference allStudents =
+      FirebaseFirestore.instance.collection('students');
+  List<Map<String, dynamic>> allLecturerCourses = [];
 
   @override
   void onInit() {
@@ -23,9 +26,8 @@ class LecturerHomeController extends GetxController {
   final _LoginController = Get.put(LoginController());
 
   createLecture() {
-
     DateTime now = DateTime.now();
-    var day=now.day.toString();
+    var day = now.day.toString();
     print('create lecture');
   }
 
@@ -61,10 +63,18 @@ class LecturerHomeController extends GetxController {
     print('get single lecture attendance report');
   }
 
-  getAllMyCourses() async  {
-    allLecturerCourses= _LoginController.allLecturerCourses;
+  getAllMyCourses() async {
+    allLecturerCourses = _LoginController.allLecturerCourses;
     DateTime now = DateTime.now();
-    List<String> daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    List<String> daysOfWeek = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ];
     String dayOfWeekString = daysOfWeek[now.weekday - 1];
 
     print('today is $dayOfWeekString');
@@ -77,7 +87,7 @@ class LecturerHomeController extends GetxController {
       middleText: 'Are you sure you want to start the class ? ',
       textConfirm: 'Yes',
       textCancel: 'No',
-     // confirmTextColor: Colors.white,
+      // confirmTextColor: Colors.white,
       onConfirm: () {
         Get.back();
         //Get.offAllNamed('/login');
