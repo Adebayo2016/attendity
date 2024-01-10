@@ -1,5 +1,10 @@
+import 'package:attendity/controller/HomeController/home_Controller.dart';
+import 'package:attendity/views/home.dart';
+import 'package:attendity/views/lecturer/LecturerPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
@@ -14,10 +19,13 @@ class LoginController extends GetxController {
   var isEmailValid = false;
   var isPasswordValid = false;
   var isFormValid = false;
+  String lecturername="";
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
+  CollectionReference data = FirebaseFirestore.instance.collection('users');
+  List<Map<String, dynamic>> allLecturerCourses =[];
 
   void onEmailChanged(String text) {
     email = text;
@@ -89,6 +97,47 @@ class LoginController extends GetxController {
     }
   }
   getUserDetails(){
-    print("i am here ");
+     var user = auth.currentUser;
+      var uid = user!.email;
+      data.doc(uid).get().then((value) {
+        lecturername=value['FullNames'];
+        update();
+        if(value['accountType']==1){
+
+          Get.to(() => HomePage());
+        }
+        else {
+          getAllMyCourses();
+          // Get.to(() => LecturerPage());
+        }
+
+      });
+  }
+
+ void  getAllMyCourses() async  {
+    try {
+      print("i have started oo in my Login ");
+      startLoading(Get.context!);
+      await  FirebaseFirestore.instance
+          .collection('courses')
+          .where('lecturerName', isEqualTo: 'Dr. olotu')
+          .snapshots()
+          .listen((snapshot) {
+        if (snapshot.docs.isEmpty) {
+          loadingSuccessful(null);
+
+        } else {
+          loadingSuccessful(null);
+          snapshot.docs.forEach((element) {
+            allLecturerCourses.add(element.data());
+            print("All Lecturer Courses are  " + allLecturerCourses.toString());
+            Get.to(() => LecturerPage());
+          });
+        }
+      });
+    } catch (e) {
+      loadingFailed("an error occurred");
+      print(e.toString());
+    }
   }
 }
