@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegisterController extends GetxController{
-String email = '';
+class RegCourseController extends GetxController{
+  String email = '';
   String password = '';
   String confirmPassword = '';
   var isPasswordVisible = false;
@@ -17,22 +17,18 @@ String email = '';
 
   String? FullNames;
   String? Phone;
-  String? MatricNumber;
+  String? course;
   String? Department;
-  String? Level;
   int? accountType;
-
-
-
   FirebaseAuth auth = FirebaseAuth.instance;
   //FirebaseFirestore data = FirebaseFirestore.instance.collection('users');
-  CollectionReference student = FirebaseFirestore.instance.collection('users');
-  TextEditingController emailController = TextEditingController();
+  CollectionReference courseReg = FirebaseFirestore.instance.collection('courses');
+  TextEditingController dayController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController FullNamesController = TextEditingController();
-  TextEditingController PhoneController = TextEditingController();
-  TextEditingController MatricNumberController = TextEditingController();
+  TextEditingController courseNameController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
+  TextEditingController lecturerNameController = TextEditingController();
   TextEditingController DepartmentController = TextEditingController();
   TextEditingController LevelController = TextEditingController();
 
@@ -98,10 +94,10 @@ String email = '';
   }
 
   void Register() async {
-    String? userEmail=emailController.text;
+    String? userEmail=dayController.text;
     String? userPassword=passwordController.text;
 
-   await  auth.createUserWithEmailAndPassword(
+    await  auth.createUserWithEmailAndPassword(
         email: userEmail, password: userPassword).
     then((value) async {
       await saveUserDetails();
@@ -114,26 +110,24 @@ String email = '';
 
   Future<void> saveUserDetails() async {
     print("Saving user details ");
-    String? userEmail=emailController.text;
-    String? fullNames=FullNamesController.text;
-    String? phone=PhoneController.text;
-    String? matricNumber=MatricNumberController.text;
+    String? days=dayController.text;
+    String? courseName=courseNameController.text;
+    String? time=timeController.text;
     String? department=DepartmentController.text;
-    String? level=LevelController.text;
+    String? lecturerName=lecturerNameController.text;
     try {
-      await student.doc(userEmail).set({
-        'email': userEmail,
-        'FullNames': fullNames,
-        'Phone': phone,
-        'MatricNumber': matricNumber,
+      await courseReg.doc().set({
+        'day': days,
+        'name': courseName,
+        'time': time,
         'Department': department,
-        'Level': level,
-        'accountType': 0,
+        'lecturerName': lecturerName,
+        'level': '500',
       }).then((value){
         Get.snackbar('Success',
             'Data Saved Successfully',snackPosition: SnackPosition.BOTTOM);
       }).catchError((error) => Get.snackbar('Error', error.toString(),snackPosition: SnackPosition.BOTTOM));
-      } catch (e) {
+    } catch (e) {
       print(e);
     }
   }

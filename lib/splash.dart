@@ -14,10 +14,6 @@ class SplashScreen  extends StatelessWidget {
           children:
           [
 
-
-
-
-
           ],
         ),
       ),

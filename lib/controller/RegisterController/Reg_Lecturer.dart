@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegisterController extends GetxController{
-String email = '';
+class RegLecturer extends GetxController{
+  String email = '';
   String password = '';
   String confirmPassword = '';
   var isPasswordVisible = false;
@@ -17,22 +17,18 @@ String email = '';
 
   String? FullNames;
   String? Phone;
-  String? MatricNumber;
+  String? course;
   String? Department;
-  String? Level;
   int? accountType;
-
-
-
   FirebaseAuth auth = FirebaseAuth.instance;
   //FirebaseFirestore data = FirebaseFirestore.instance.collection('users');
-  CollectionReference student = FirebaseFirestore.instance.collection('users');
+  CollectionReference lecturer = FirebaseFirestore.instance.collection('users');
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController FullNamesController = TextEditingController();
   TextEditingController PhoneController = TextEditingController();
-  TextEditingController MatricNumberController = TextEditingController();
+  TextEditingController CourseController = TextEditingController();
   TextEditingController DepartmentController = TextEditingController();
   TextEditingController LevelController = TextEditingController();
 
@@ -101,7 +97,7 @@ String email = '';
     String? userEmail=emailController.text;
     String? userPassword=passwordController.text;
 
-   await  auth.createUserWithEmailAndPassword(
+    await  auth.createUserWithEmailAndPassword(
         email: userEmail, password: userPassword).
     then((value) async {
       await saveUserDetails();
@@ -117,23 +113,21 @@ String email = '';
     String? userEmail=emailController.text;
     String? fullNames=FullNamesController.text;
     String? phone=PhoneController.text;
-    String? matricNumber=MatricNumberController.text;
     String? department=DepartmentController.text;
-    String? level=LevelController.text;
+    String? course=CourseController.text;
     try {
-      await student.doc(userEmail).set({
+      await lecturer.doc(userEmail).set({
         'email': userEmail,
         'FullNames': fullNames,
         'Phone': phone,
-        'MatricNumber': matricNumber,
         'Department': department,
-        'Level': level,
         'accountType': 0,
+         'course':course,
       }).then((value){
         Get.snackbar('Success',
             'Data Saved Successfully',snackPosition: SnackPosition.BOTTOM);
       }).catchError((error) => Get.snackbar('Error', error.toString(),snackPosition: SnackPosition.BOTTOM));
-      } catch (e) {
+    } catch (e) {
       print(e);
     }
   }
