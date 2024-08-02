@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
 import '../../../util/networkError.dart';
+import '../../../views/students/classSuccessful.dart';
 
 class studentController extends GetxController {
   String? courseId;
@@ -47,23 +48,26 @@ class studentController extends GetxController {
   FirebaseFirestore firestore= FirebaseFirestore.instance;
 
    Future joinClass() async {
-     String name=nameController.text;
-      String matricNo=matricNoController.text;
-      String Dept=DeptController.text;
-      String level=levelController.text;
 
-   Map data = {
-        'name':name,
-        'matricNo':matricNo,
-        'Dept':Dept,
-        'time':DateTime.now().toString(),
-        'status':'present',
-        'level':level,
-     };
-     
-     DocumentReference courseIdRef= FirebaseFirestore.instance.collection('courses').doc(courseId).collection("attendance").doc(_deviceID);
-   CollectionReference courseCollection= FirebaseFirestore.instance.collection('courses').doc(courseId).collection('attendance');
-   courseIdRef.set(data).then((value) => null);
+     Get.to(AttendanceSuccess(title: "Success",));
+
+   //   String name=nameController.text;
+   //    String matricNo=matricNoController.text;
+   //    String Dept=DeptController.text;
+   //    String level=levelController.text;
+   //
+   // Map data = {
+   //      'name':name,
+   //      'matricNo':matricNo,
+   //      'Dept':Dept,
+   //      'time':DateTime.now().toString(),
+   //      'status':'present',
+   //      'level':level,
+   //   };
+   //
+   //   DocumentReference courseIdRef= FirebaseFirestore.instance.collection('courses').doc(courseId).collection("attendance").doc(_deviceID);
+   // CollectionReference courseCollection= FirebaseFirestore.instance.collection('courses').doc(courseId).collection('attendance');
+   // courseIdRef.set(data).then((value) => null);
    }
 
   Future<void> _getDeviceID() async {
@@ -93,7 +97,7 @@ class studentController extends GetxController {
               child: Text('Yes'),
               onPressed: () {
                 joinClass();
-                Navigator.of(context).pop();
+                //Navigator.of(context).pop();
               },
             ),
             TextButton(

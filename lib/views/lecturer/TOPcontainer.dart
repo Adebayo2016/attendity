@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'AllStudent.dart';
 import 'QRCode.dart';
 
 class TopContainer extends StatefulWidget {
@@ -234,10 +235,15 @@ class _TopContainerState extends State<TopContainer> {
                             SizedBox(
                               width: 10,
                             ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: Colors.white,
-                              size: 10,
+                            InkWell(
+                              onTap: (){
+                                Get.to(StudentListPage());
+                              },
+                              child: Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.white,
+                                size: 10,
+                              ),
                             )
                           ],
                         )
