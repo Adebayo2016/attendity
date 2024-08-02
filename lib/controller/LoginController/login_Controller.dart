@@ -127,7 +127,7 @@ class LoginController extends GetxController {
           snapshot.docs.forEach((element) {
             allLecturerCourses.add(element.data());
             print("All Lecturer Courses are  " + allLecturerCourses.toString());
-            Get.to(() => HomePage());
+            Get.to(() => LecturerPage());
           });
         }
       });

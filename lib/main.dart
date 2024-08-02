@@ -1,3 +1,9 @@
+import 'package:attendity/splash.dart';
+import 'package:attendity/views/home.dart';
+import 'package:attendity/views/lecturer/AllStudent.dart';
+import 'package:attendity/views/lecturer/AttendanceHistory.dart';
+import 'package:attendity/views/lecturer/LecturerPage.dart';
+import 'package:attendity/views/login.dart';
 import 'package:attendity/views/students/JoinClass.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    return ScreenUtilInit(child: JoinQRCodeScannerPage());
+    return ScreenUtilInit(child: StudentListPage());
 
   }
 

@@ -22,7 +22,11 @@ class _LecturerPageState extends State<LecturerPage> {
         children: [
           TopContainer(),
           SizedBox(height: 20,),
-          Text(_lecturerHomeController.allLecturerCourses.length.toString()),
+          InkWell(
+            onTap: (){
+
+            },
+              child: Text(_lecturerHomeController.allLecturerCourses.length.toString())),
         ],
       ),
 

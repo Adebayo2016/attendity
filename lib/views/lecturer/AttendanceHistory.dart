@@ -11,7 +11,10 @@ import 'historyWidget.dart';
 
 
 class SingleStudentAttendanceHistory extends StatefulWidget {
-  const SingleStudentAttendanceHistory({super.key});
+
+  final String name;
+  final String matricNumber;
+  const SingleStudentAttendanceHistory({super.key, required this.name, required this.matricNumber});
 
   @override
   State<SingleStudentAttendanceHistory> createState() => _SingleStudentAttendanceHistoryState();
@@ -60,7 +63,7 @@ class _SingleStudentAttendanceHistoryState extends State<SingleStudentAttendance
                           height: 60.sp,
                           width: 60.sp,
                           child: Initicon(
-                            text: 'Adebayo Adewale',
+                            text: widget.name,
                             backgroundColor: Color(0xFF1A1A1A),
                             size: 60,
                           )),
@@ -71,7 +74,7 @@ class _SingleStudentAttendanceHistoryState extends State<SingleStudentAttendance
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Adebayo Adewale',
+                            widget.name,
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w700,
@@ -79,7 +82,15 @@ class _SingleStudentAttendanceHistoryState extends State<SingleStudentAttendance
                             ),
                           ),
                           Text(
-                            'IFT/17/2389',
+                            widget.matricNumber,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              // fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Text(
+                            'current class: present',
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: 12.sp,

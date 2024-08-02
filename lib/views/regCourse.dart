@@ -218,8 +218,7 @@ class _RegisterCourseState extends State<RegisterCourse> {
               SizedBox(height: 30.sp,),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF97BCE8),
-                  onPrimary: Colors.white,
+                  foregroundColor: Colors.white, backgroundColor: Color(0xFF97BCE8),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),

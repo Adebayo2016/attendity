@@ -122,7 +122,7 @@ class _TopContainerState extends State<TopContainer> {
                                       title: Text(myCourses[index]['name']),
                                       onTap: () {
                                       Get.to(()=>QRCode(ClassName: myCourses[index]['name'],));
-                                        Navigator.of(context).pop();
+                                       //Navigator.of(context).pop();
                                       },
                                     );
                                   },
